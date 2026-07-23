@@ -1,30 +1,366 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>我的个人主页</title>
-  <style>
-    body {
-      max-width: 720px;
-      margin: 80px auto;
-      padding: 0 24px;
-      font-family: system-ui, sans-serif;
-      line-height: 1.7;
-      color: #24292f;
-    }
-  </style>
+  <meta name="description" content="SJing 的个人学术主页与双语在线简历，关注 VLA、世界模型、生成式模型与三维重建。">
+  <meta name="theme-color" content="#082d3d">
+  <title>SJing · 个人主页</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
+  <link rel="preload" href="assets/forest-hero.png" as="image">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>你好，我是小明 👋</h1>
-  <p>欢迎来到我的个人主页。</p>
+  <a class="skip-link" href="#about" data-zh="跳到主要内容" data-en="Skip to content">跳到主要内容</a>
 
-  <h2>关于我</h2>
-  <p>在这里介绍你的职业、兴趣和正在做的项目。</p>
+  <header class="site-header" id="top">
+    <a class="brand" href="#home" aria-label="SJing 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span class="brand-name">SJING<span class="brand-dot">.</span></span>
+    </a>
 
-  <h2>联系我</h2>
-  <p>
-    <a href="https://github.com/你的用户名">GitHub</a>
-  </p>
+    <nav class="desktop-nav" aria-label="主导航">
+      <a class="nav-link active" href="#home" data-zh="首页" data-en="Home">首页</a>
+      <a class="nav-link" href="#about" data-zh="关于" data-en="About">关于</a>
+      <a class="nav-link" href="#research" data-zh="研究" data-en="Research">研究</a>
+      <a class="nav-link" href="#projects" data-zh="项目" data-en="Projects">项目</a>
+      <a class="nav-link" href="#profile-contact" data-zh="联系" data-en="Contact">联系</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="language-switch" role="group" aria-label="语言切换">
+        <button class="lang-button active" type="button" data-lang="zh" aria-pressed="true">中</button>
+        <span aria-hidden="true"></span>
+        <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-button" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="移动端导航" aria-hidden="true">
+    <a href="#home"><span>01</span><b data-zh="首页" data-en="Home">首页</b></a>
+    <a href="#about"><span>02</span><b data-zh="关于" data-en="About">关于</b></a>
+    <a href="#research"><span>03</span><b data-zh="研究" data-en="Research">研究</b></a>
+    <a href="#projects"><span>04</span><b data-zh="项目" data-en="Projects">项目</b></a>
+    <a href="#profile-contact"><span>05</span><b data-zh="联系" data-en="Contact">联系</b></a>
+  </nav>
+
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <canvas id="star-canvas" aria-hidden="true"></canvas>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <div class="hero-coordinate coordinate-left" aria-hidden="true">31.2304° N<br>121.4737° E</div>
+      <div class="hero-coordinate coordinate-right" aria-hidden="true">PORTFOLIO<br>2026 — ∞</div>
+
+      <div class="hero-content">
+        <p class="eyebrow">
+          <span></span>
+          <span data-zh="个人主页 · 研究与创造" data-en="PORTFOLIO · RESEARCH & CREATION">个人主页 · 研究与创造</span>
+        </p>
+        <h1 id="hero-title">
+          <span class="hero-greeting" data-zh="你好，我是" data-en="Hi, I'm">你好，我是</span>
+          <span class="hero-name">SJing<span>.</span></span>
+        </h1>
+        <div class="hero-insight" aria-live="polite">
+          <p class="hero-statement" id="insight-text">深度学习的价值，不只是拟合数据，更是学习可迁移的表示。</p>
+          <button class="insight-refresh" id="insight-refresh" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5M18.3 9A7 7 0 0 0 6.7 6.7L4 11M5.7 15A7 7 0 0 0 17.3 17.3L20 13"/></svg>
+            <span data-zh="深度学习札记" data-en="Deep Learning Note">深度学习札记</span>
+            <i aria-hidden="true">·</i>
+            <span id="insight-index">01 / 12</span>
+          </button>
+        </div>
+        <p class="hero-intro" data-zh="聚焦视觉-语言-行动、世界模型、生成式模型与三维重建。" data-en="Exploring vision-language-action, world models, generative AI, and 3D reconstruction.">
+          聚焦视觉-语言-行动、世界模型、生成式模型与三维重建。
+        </p>
+        <div class="hero-cta">
+          <a class="button button-primary" href="#about">
+            <span data-zh="查看我的简历" data-en="Explore my resume">查看我的简历</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
+          </a>
+          <a class="button button-ghost" href="mailto:sjing2757@gmail.com">
+            <span data-zh="与我联系" data-en="Get in touch">与我联系</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-stats" aria-label="概览">
+        <div><strong>04</strong><span data-zh="研究方向" data-en="Research fields">研究方向</span></div>
+        <i></i>
+        <div><strong>03</strong><span data-zh="精选主题" data-en="Featured topics">精选主题</span></div>
+        <i></i>
+        <div><strong>∞</strong><span data-zh="保持好奇" data-en="Stay curious">保持好奇</span></div>
+      </div>
+
+      <a class="scroll-cue" href="#about" aria-label="向下滚动">
+        <span data-zh="向下探索" data-en="Scroll to explore">向下探索</span>
+        <i aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section class="resume" id="about">
+      <div class="section-watermark" aria-hidden="true">PROFILE</div>
+      <div class="resume-layout">
+        <aside class="profile-card reveal">
+          <div class="avatar-wrap" aria-hidden="true">
+            <div class="avatar-ring"></div>
+            <div class="avatar"><span>SJ</span></div>
+            <i></i>
+          </div>
+          <p class="profile-kicker">AI · VISION · ROBOTICS</p>
+          <h2>SJing</h2>
+          <p class="profile-role" data-zh="AI 研究者与开发者" data-en="AI Researcher & Developer">AI 研究者与开发者</p>
+          <p class="profile-quote" data-zh="“在像素、语言与行动之间，寻找智能的下一种表达。”" data-en="“Finding the next expression of intelligence between pixels, language, and action.”">
+            “在像素、语言与行动之间，寻找智能的下一种表达。”
+          </p>
+
+          <div class="availability">
+            <span aria-hidden="true"></span>
+            <p><b data-zh="当前状态" data-en="Current status">当前状态</b><br><span data-zh="开放研究与项目交流" data-en="Open to research conversations">开放研究与项目交流</span></p>
+          </div>
+
+          <div class="profile-focus">
+            <p class="profile-section-title">
+              <span data-zh="研究关键词" data-en="Research keywords">研究关键词</span>
+              <i>FOCUS</i>
+            </p>
+            <div class="focus-tags" aria-label="研究关键词">
+              <span>VLA</span>
+              <span>World Models</span>
+              <span>Generative AI</span>
+              <span>3D Vision</span>
+            </div>
+          </div>
+
+          <div class="profile-contact" id="profile-contact">
+            <p class="profile-section-title">
+              <span data-zh="联系方式" data-en="Contact">联系方式</span>
+              <i>HELLO@</i>
+            </p>
+            <a class="contact-email" href="mailto:sjing2757@gmail.com">
+              <span class="contact-icon">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 7 9-7"/></svg>
+              </span>
+              <span><small data-zh="邮件" data-en="Email">邮件</small><b>sjing2757@gmail.com</b></span>
+            </a>
+            <button class="copy-email" id="copy-email" type="button" data-email="sjing2757@gmail.com">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+              <span class="copy-label" data-zh="复制邮箱" data-en="Copy email">复制邮箱</span>
+            </button>
+            <p class="copy-feedback" id="copy-feedback" aria-live="polite"></p>
+          </div>
+        </aside>
+
+        <div class="resume-main">
+          <article class="intro-block reveal">
+            <div class="section-label"><span>01</span><i></i><b data-zh="关于我" data-en="About me">关于我</b></div>
+            <p class="hello" data-zh="嗨，很高兴在这里遇见你。" data-en="Hi there, glad you found me.">嗨，很高兴在这里遇见你。</p>
+            <h2 data-zh="我对能感知、推理并行动的智能系统充满好奇。" data-en="I'm curious about intelligent systems that can perceive, reason, and act.">
+              我对能感知、推理并行动的智能系统充满好奇。
+            </h2>
+            <div class="intro-copy">
+              <p data-zh="我的主要研究兴趣横跨视觉与语言、生成式学习和空间智能。我希望把模型从“看懂”世界推进到能够预测、规划并可靠地参与其中。" data-en="My interests span vision and language, generative learning, and spatial intelligence. I want to move models from simply seeing the world toward predicting, planning, and participating in it reliably.">
+                我的主要研究兴趣横跨视觉与语言、生成式学习和空间智能。我希望把模型从“看懂”世界推进到能够预测、规划并可靠地参与其中。
+              </p>
+              <p data-zh="这里记录我的学习轨迹、研究主题与项目探索。它会随着新的问题和答案持续生长。" data-en="This space documents my learning journey, research themes, and project explorations. It will keep growing with new questions and answers.">
+                这里记录我的学习轨迹、研究主题与项目探索。它会随着新的问题和答案持续生长。
+              </p>
+            </div>
+          </article>
+
+          <div class="now-strip reveal">
+            <span class="now-icon" aria-hidden="true">✦</span>
+            <b data-zh="此刻" data-en="NOW">此刻</b>
+            <p data-zh="正在探索 VLA 与世界模型如何协同完成长时任务。" data-en="Exploring how VLA systems and world models can collaborate on long-horizon tasks.">
+              正在探索 VLA 与世界模型如何协同完成长时任务。
+            </p>
+            <time>2026</time>
+          </div>
+
+          <section class="content-section" id="research">
+            <div class="section-heading reveal">
+              <div class="section-label"><span>02</span><i></i><b data-zh="研究兴趣" data-en="Research interests">研究兴趣</b></div>
+              <div>
+                <h2 data-zh="关注的方向" data-en="What I explore">关注的方向</h2>
+                <p data-zh="从多模态感知到具身决策。" data-en="From multimodal perception to embodied decision-making.">从多模态感知到具身决策。</p>
+              </div>
+            </div>
+
+            <div class="research-grid">
+              <article class="research-card reveal" data-tilt>
+                <span class="card-index">01</span>
+                <div class="research-icon icon-vla" aria-hidden="true">
+                  <svg viewBox="0 0 64 64"><circle cx="17" cy="19" r="7"/><circle cx="47" cy="17" r="5"/><circle cx="42" cy="46" r="8"/><path d="M22 22l15 19M24 18h18M19 26l17 17"/></svg>
+                </div>
+                <h3 data-zh="视觉-语言-行动" data-en="Vision-Language-Action">视觉-语言-行动</h3>
+                <p data-zh="理解视觉与语言指令，并将其转化为可泛化、可靠的动作序列。" data-en="Grounding visual and language instructions into generalizable, reliable action sequences.">
+                  理解视觉与语言指令，并将其转化为可泛化、可靠的动作序列。
+                </p>
+                <span class="card-tag">VLA</span>
+              </article>
+
+              <article class="research-card reveal" data-tilt>
+                <span class="card-index">02</span>
+                <div class="research-icon icon-world" aria-hidden="true">
+                  <svg viewBox="0 0 64 64"><path d="M12 40c8-18 32-18 40 0M17 42h30M23 44v6M41 44v6"/><circle cx="25" cy="29" r="3"/><circle cx="39" cy="29" r="3"/></svg>
+                </div>
+                <h3 data-zh="世界模型" data-en="World Models">世界模型</h3>
+                <p data-zh="学习环境动力学，为视频预测、规划与长时决策建立内部模拟器。" data-en="Learning environment dynamics as an internal simulator for prediction, planning, and long-horizon decisions.">
+                  学习环境动力学，为视频预测、规划与长时决策建立内部模拟器。
+                </p>
+                <span class="card-tag">WM</span>
+              </article>
+
+              <article class="research-card reveal" data-tilt>
+                <span class="card-index">03</span>
+                <div class="research-icon icon-gen" aria-hidden="true">
+                  <svg viewBox="0 0 64 64"><path d="M32 8l4 14 14 4-14 4-4 14-4-14-14-4 14-4zM48 40l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/></svg>
+                </div>
+                <h3 data-zh="生成式模型" data-en="Generative Models">生成式模型</h3>
+                <p data-zh="探索高质量、可控制且具备一致性的图像、视频与多模态内容生成。" data-en="Exploring high-quality, controllable, and consistent image, video, and multimodal generation.">
+                  探索高质量、可控制且具备一致性的图像、视频与多模态内容生成。
+                </p>
+                <span class="card-tag">GEN</span>
+              </article>
+
+              <article class="research-card reveal" data-tilt>
+                <span class="card-index">04</span>
+                <div class="research-icon icon-3d" aria-hidden="true">
+                  <svg viewBox="0 0 64 64"><path d="M32 8l20 11v25L32 56 12 44V19zM12 19l20 12 20-12M32 31v25"/></svg>
+                </div>
+                <h3 data-zh="三维重建" data-en="3D Reconstruction">三维重建</h3>
+                <p data-zh="从图像与视频恢复可编辑、可渲染、可交互的三维空间表示。" data-en="Recovering editable, renderable, and interactive 3D representations from images and video.">
+                  从图像与视频恢复可编辑、可渲染、可交互的三维空间表示。
+                </p>
+                <span class="card-tag">3D</span>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-section projects-section" id="projects">
+            <div class="section-heading reveal">
+              <div class="section-label"><span>03</span><i></i><b data-zh="项目探索" data-en="Project explorations">项目探索</b></div>
+              <div>
+                <h2 data-zh="正在构建的想法" data-en="Ideas in progress">正在构建的想法</h2>
+                <p data-zh="以研究问题为起点，让想法落地。" data-en="Turning research questions into tangible experiments.">以研究问题为起点，让想法落地。</p>
+              </div>
+            </div>
+
+            <div class="project-list">
+              <article class="project-card project-vla reveal">
+                <div class="project-visual" aria-hidden="true">
+                  <div class="robot-head"><i></i><i></i></div>
+                  <div class="signal s1"></div><div class="signal s2"></div><div class="signal s3"></div>
+                  <span class="visual-label">VISION → LANGUAGE → ACTION</span>
+                </div>
+                <div class="project-content">
+                  <div class="project-topline"><span>01 / RESEARCH NOTE</span><b>VLA</b></div>
+                  <h3 data-zh="通向通用机器人的多模态接口" data-en="A multimodal interface for generalist robots">通向通用机器人的多模态接口</h3>
+                  <p data-zh="整理 VLA 模型的数据、表征与策略学习路径，关注泛化能力与真实部署中的可靠性。" data-en="Mapping the data, representation, and policy-learning landscape of VLA models, with a focus on generalization and real-world reliability.">
+                    整理 VLA 模型的数据、表征与策略学习路径，关注泛化能力与真实部署中的可靠性。
+                  </p>
+                  <div class="project-tags"><span>Multimodal</span><span>Robotics</span><span>Policy</span></div>
+                </div>
+              </article>
+
+              <article class="project-card project-world reveal">
+                <div class="project-visual" aria-hidden="true">
+                  <div class="world-orbit orbit-one"></div>
+                  <div class="world-orbit orbit-two"></div>
+                  <div class="world-core"></div>
+                  <span class="visual-label">OBSERVE → IMAGINE → PLAN</span>
+                </div>
+                <div class="project-content">
+                  <div class="project-topline"><span>02 / CONCEPT LAB</span><b>WORLD MODEL</b></div>
+                  <h3 data-zh="可交互的世界模型实验场" data-en="An interactive playground for world models">可交互的世界模型实验场</h3>
+                  <p data-zh="用可视化实验理解潜空间动力学、动作条件预测，以及模型如何在想象中完成规划。" data-en="Visual experiments for understanding latent dynamics, action-conditioned prediction, and planning inside imagination.">
+                    用可视化实验理解潜空间动力学、动作条件预测，以及模型如何在想象中完成规划。
+                  </p>
+                  <div class="project-tags"><span>Dynamics</span><span>Planning</span><span>Simulation</span></div>
+                </div>
+              </article>
+
+              <article class="project-card project-3d reveal">
+                <div class="project-visual" aria-hidden="true">
+                  <div class="cube">
+                    <span class="face face-front"></span><span class="face face-back"></span>
+                    <span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span>
+                  </div>
+                  <span class="visual-label">2D OBSERVATIONS → 3D SPACE</span>
+                </div>
+                <div class="project-content">
+                  <div class="project-topline"><span>03 / EXPLORATION</span><b>3D VISION</b></div>
+                  <h3 data-zh="从二维观察恢复三维空间" data-en="Recovering 3D space from 2D observations">从二维观察恢复三维空间</h3>
+                  <p data-zh="探索多视角几何与神经场表示，追求更高效、更真实且易于编辑的空间重建。" data-en="Exploring multi-view geometry and neural field representations for efficient, realistic, and editable reconstruction.">
+                    探索多视角几何与神经场表示，追求更高效、更真实且易于编辑的空间重建。
+                  </p>
+                  <div class="project-tags"><span>Neural Fields</span><span>Geometry</span><span>Rendering</span></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-section path-section">
+            <div class="section-heading reveal">
+              <div class="section-label"><span>04</span><i></i><b data-zh="成长路径" data-en="Journey">成长路径</b></div>
+              <div>
+                <h2 data-zh="持续学习，持续记录" data-en="Always learning, always documenting">持续学习，持续记录</h2>
+                <p data-zh="一份仍在生长的简历。" data-en="A résumé that is still growing.">一份仍在生长的简历。</p>
+              </div>
+            </div>
+
+            <div class="timeline reveal">
+              <div class="timeline-line" aria-hidden="true"><i></i></div>
+              <article>
+                <time data-zh="现在" data-en="NOW">现在</time>
+                <div>
+                  <span data-zh="研究焦点" data-en="RESEARCH FOCUS">研究焦点</span>
+                  <h3 data-zh="VLA 与世界模型" data-en="VLA & World Models">VLA 与世界模型</h3>
+                  <p data-zh="关注多模态模型如何从感知走向规划与行动。" data-en="Studying how multimodal models move from perception toward planning and action.">关注多模态模型如何从感知走向规划与行动。</p>
+                </div>
+              </article>
+              <article>
+                <time data-zh="持续" data-en="ONGOING">持续</time>
+                <div>
+                  <span data-zh="技术积累" data-en="TECHNICAL PRACTICE">技术积累</span>
+                  <h3 data-zh="生成式学习与空间智能" data-en="Generative Learning & Spatial Intelligence">生成式学习与空间智能</h3>
+                  <p data-zh="通过论文复现、原型实验与可视化加深理解。" data-en="Deepening understanding through paper reproduction, prototypes, and visual experiments.">通过论文复现、原型实验与可视化加深理解。</p>
+                </div>
+              </article>
+              <article>
+                <time data-zh="下一步" data-en="NEXT">下一步</time>
+                <div>
+                  <span data-zh="开放方向" data-en="OPEN DIRECTION">开放方向</span>
+                  <h3 data-zh="值得长期投入的问题" data-en="Questions worth pursuing">值得长期投入的问题</h3>
+                  <p data-zh="寻找能够连接严谨研究与真实价值的合作机会。" data-en="Looking for collaborations that connect rigorous research with real-world value.">寻找能够连接严谨研究与真实价值的合作机会。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" aria-label="页脚">
+      <canvas id="wave-canvas" aria-hidden="true"></canvas>
+      <div class="contact-stars" aria-hidden="true"></div>
+      <div class="footer-note reveal">
+        <span aria-hidden="true">✦</span>
+        <p data-zh="保持好奇，持续构建。" data-en="Stay curious. Keep building.">保持好奇，持续构建。</p>
+      </div>
+      <footer>
+        <a class="brand footer-brand" href="#home"><span class="brand-mark">S</span><span class="brand-name">SJING<span class="brand-dot">.</span></span></a>
+        <p>© <span id="current-year">2026</span> SJing. <span data-zh="以好奇心构建。" data-en="Built with curiosity.">以好奇心构建。</span></p>
+        <a href="#home" class="back-to-top"><span data-zh="返回顶部" data-en="Back to top">返回顶部</span> ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <script src="script.js"></script>
 </body>
 </html>
