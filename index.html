@@ -1,18 +1,47 @@
 <!doctype html>
+
+<!-- HTML 元素的 lang 属性全称language, 这是一个全局属性，所有元素都可以使用这个属性，
+  用于声明 HTML 文档或元素的语言, 方便搜索引擎、浏览器翻译和读屏软件正确识别与处理内容。
+  它的值通过ISO 639-1 语言代码和 ISO 639-1 国家/地区代码确定，国家代码可以不写，写的话必须写在语言代码后面。
+  zh表示中文，CN表示中国大陆(China)，HK表示香港(Hong Kong)，TW表示台湾。zh-CN 表示简体中文，zh-TW表示繁体中文。
+  en表示英文，US表示美国。
+-->
+<!--这里表示该html页面的语言主要使用简体中文-->
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SJing 的个人学术主页与双语在线简历，关注 VLA、世界模型、生成式模型与三维重建。">
   <meta name="theme-color" content="#082d3d">
+<!-- 定义当前页面的名称 -->
   <title>SJing · 个人主页</title>
+<!-- link标签
+    <link> 标签用来引入外部资源，定义文档与外部资源的关系。
+    <link> 标签最常见的用途是链接样式表。
+    注意： link 元素是空元素，它仅包含属性。
+         并且 link 标签只能存在于 head 部分，不过它可以出现任何次数。-->
+<!-- link标签支持的属性：
+    href: hypertext reference, 值是URL，用来指定被链接文档的位置。
+    rel: relationship, 值有很多种，用来定义当前文档与被链接文档之间的关系。-->
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
   <link rel="preload" href="assets/forest-hero.png" as="image">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
+<!-- 属性值的 #部分叫做 片段标识符，用来标识页面中的次级内容，实现页内跳转，
+     它不会把信息发送给服务器，而是仅由浏览器处理，跳转到指定id的 html 元素处(所以这就要求要跳转到的元素必须有id属性) -->
+<!--     写法                    含义
+    href="#about"         当前页面内跳转到 #about元素处
+    href="about.html"         跳转到新页面
+    href="/about#team"    先进入 /about，再跳到 #team元素处-->
+<!-- data-*  属性用来存储自定义的数据 -->
   <a class="skip-link" href="#about" data-zh="跳到主要内容" data-en="Skip to content">跳到主要内容</a>
 
+<!--  <header> 标签用来定义页面的页眉。<header> 元素应该作为介绍内容或者导航链接栏的容器。-->
   <header class="site-header" id="top">
     <a class="brand" href="#home" aria-label="SJing 首页">
       <span class="brand-mark" aria-hidden="true">S</span>
@@ -39,15 +68,52 @@
     </div>
   </header>
 
+<!-- nav 标签，navigation，同样的，它也是一个语义化标签，
+     用于定义页面中专门用于导航链接的部分。它通常用来定义一个包含指向当前文档或其他文档链接的区块，例如菜单、目录等。
+     并非所有链接都应该放在 nav 元素内。nav 元素仅用于主要的导航链接块。
+     浏览器（例如用于残障用户的屏幕阅读器）可以使用此元素来决定是否省略此内容的初始渲染。
+-->
   <nav class="mobile-menu" id="mobile-menu" aria-label="移动端导航" aria-hidden="true">
     <a href="#home"><span>01</span><b data-zh="首页" data-en="Home">首页</b></a>
     <a href="#about"><span>02</span><b data-zh="关于" data-en="About">关于</b></a>
     <a href="#research"><span>03</span><b data-zh="研究" data-en="Research">研究</b></a>
     <a href="#projects"><span>04</span><b data-zh="项目" data-en="Projects">项目</b></a>
     <a href="#profile-contact"><span>05</span><b data-zh="联系" data-en="Contact">联系</b></a>
+    <a href="front-end_development_page.html">06 连续 </a> <!--这里是要新加的页面 -->
   </nav>
 
+<!-- <main> 是 HTML5 引入的语义化标签, 用于定义页面的主要内容。（表示接下来的内容是页面的主要内容）
+     语义化标签的意思就是标签名本身就可以大概告诉你里面是什么，比如说：
+         <main> → 这是主要内容
+         <nav>  → 这是导航
+         <article> → 这是一篇文章
+         <header>  → 这是页眉
+         非语义化标签就是标签名不告诉任何含义，它只是个通用容器
+         <div> → 一个块级盒子，装什么都可以
+         <span> → 一个行内盒子，装什么都可以。
+     使用 main 这种语义化标签比 div 更为规范，能做到见名知意，提高代码可读性，
+     同时也可以帮助搜索引擎快速定位页面主要内容，辅助理解页面主题。
+     <main> 标签中的内容在文档中是唯一的，不能出现多个 mian标签，
+     并且不能用在 <article>、<aside>、<footer>、<header>、<nav> 等标签的内部
+-->
   <main>
+
+<!-- section 标签用来表示"一个有主题的、成组的内容区块",
+     这也是一个语义化标签, 增强了可读性,用于根据页面中内容主题的不同进行分组:
+     比如对文章的不同章节的划分、对一个系统页面的不同功能模块的展示(比如说这个页面展示了产品特性和用户评价这两个主题)。
+     一般section标签里面会写h1h2这种标题文字来表示这一块内容的主题是什么。
+     倒也不是强制写，只是说使用section标签的时候最好明确这块的内容主题是什么，
+     也可以是你自己想的主题内容，比如说这一块我要放置我的页脚，也可以写个section标签来规划它的内容。
+     相比于div来说, <div> 是个"空白纸箱"，不告诉里面是什么。
+     而<section> 相当于贴了标签的箱子，而且标签上写的是："这一块内容属于同一个主题"。
+     section 解决的也是标签的语义性问题。如果一段内容只是装饰性的或者纯样式分组，再用 <section> 就不合适了，
+     比如像：
+      <section class="flex-row">
+        <div>头像</div>
+        <div>昵称</div>
+      </section>
+     这里没有明确的"章节"语义，就只是布局用，把 section 换成 div 比较好。如果一个内容块没有明确的独立性，就尽量不要乱用section标签。
+-->
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true"></div>
       <canvas id="star-canvas" aria-hidden="true"></canvas>
@@ -58,6 +124,11 @@
 
       <div class="hero-content">
         <p class="eyebrow">
+<!--  span 标签用于对文档中的行内元素进行组合, 它提供了一种将文本的一部分独立出来展现的方式。
+      <span> 标签没有固定的格式表现, 当对它应用样式时，它才会产生视觉上的变化。
+      如果不对 <span> 应用样式，那么 <span> 元素中的文本与其他文本不会任何视觉上的差异。
+      这里就是没有对文字使用特别的样式，只是在这个标签处存储了自定义的数据
+-->
           <span></span>
           <span data-zh="个人主页 · 研究与创造" data-en="PORTFOLIO · RESEARCH & CREATION">个人主页 · 研究与创造</span>
         </p>
@@ -67,6 +138,8 @@
         </h1>
         <div class="hero-insight" aria-live="polite">
           <p class="hero-statement" id="insight-text">深度学习的价值，不只是拟合数据，更是学习可迁移的表示。</p>
+
+          <!-- button 标签定义一个按钮。不同的浏览器对 <button> 元素的 type 属性使用不同的默认值，所以请始终为 button 元素规定 type 属性。-->
           <button class="insight-refresh" id="insight-refresh" type="button">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5M18.3 9A7 7 0 0 0 6.7 6.7L4 11M5.7 15A7 7 0 0 0 17.3 17.3L20 13"/></svg>
             <span data-zh="深度学习札记" data-en="Deep Learning Note">深度学习札记</span>
@@ -74,8 +147,8 @@
             <span id="insight-index">01 / 12</span>
           </button>
         </div>
-        <p class="hero-intro" data-zh="聚焦视觉-语言-行动、世界模型、生成式模型与三维重建。" data-en="Exploring vision-language-action, world models, generative AI, and 3D reconstruction.">
-          聚焦视觉-语言-行动、世界模型、生成式模型与三维重建。
+        <p class="hero-intro" data-zh="聚焦VLA、世界模型、生成式模型与三维重建。" data-en="Exploring vision-language-action, world models, generative AI, and 3D reconstruction.">
+          聚焦VLA、世界模型、生成式模型与三维重建。
         </p>
         <div class="hero-cta">
           <a class="button button-primary" href="#about">
@@ -105,6 +178,10 @@
     <section class="resume" id="about">
       <div class="section-watermark" aria-hidden="true">PROFILE</div>
       <div class="resume-layout">
+        <!-- aside 标签，它用来定义与主内容间接相关的部分。
+        它通常以侧边栏或提示框的形式呈现，内容应该与附近的内容相关，
+        但是它本身并没有特别的样式效果，需要配合CSS实现侧边栏的效果。
+        -->
         <aside class="profile-card reveal">
           <div class="avatar-wrap" aria-hidden="true">
             <div class="avatar-ring"></div>
@@ -156,6 +233,12 @@
         </aside>
 
         <div class="resume-main">
+        <!--article 元素通常用来定义页面中独立的、完整的、可以独自被外部引用的内容，比如说一篇博客、一篇论坛帖子、一段用户评论或者其他任何独立的内容。
+        它也是个语义化标签，它和section元素很相似，但是它比 section元素更强调独立性。
+        也就是说 section强调分段或分块，而 article 强调独立性。
+        具体来说，如果一块内容相对来说比较独立的、完整的时候，应该使用article元素，
+        但是如果你想将一块内容分成几块内容的时候，应该使用section元素。
+        -->
           <article class="intro-block reveal">
             <div class="section-label"><span>01</span><i></i><b data-zh="关于我" data-en="About me">关于我</b></div>
             <p class="hello" data-zh="嗨，很高兴在这里遇见你。" data-en="Hi there, glad you found me.">嗨，很高兴在这里遇见你。</p>
@@ -360,7 +443,10 @@
     </section>
   </main>
 
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true">cio</div>
   <script src="script.js"></script>
+<!--section、header、nav、main、aside、article、footer 都是HTML5新加的语义化标签，它们都默认是块级元素。
+    其目的是为了见名知意，提高代码可读性，同时还可以辅助搜索引擎更快更精准、更清晰地识别和读取页面内容，便于优化检索。
+-->
 </body>
 </html>
