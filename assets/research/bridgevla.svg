@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" role="img" aria-labelledby="title desc">
+<title id="title">BridgeVLA — fictional research concept</title><desc id="desc">Illustrative demo figure, not an experimental result or actual product screenshot.</desc>
+<defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#164b50" stroke-opacity=".045"/></pattern><linearGradient id="panel" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#eaf0ec"/></linearGradient></defs>
+<rect width="720" height="440" fill="#eaf0ec"/><rect width="720" height="440" fill="url(#grid)"/>
+<g font-family="Arial, sans-serif" fill="#164b50"><text x="32" y="35" font-size="12" letter-spacing="2">BRIDGEVLA</text><text x="688" y="35" text-anchor="end" font-size="10" letter-spacing="1">CONCEPT / DEMO</text>
+<rect x="34" y="79" width="185" height="223" rx="14" fill="url(#panel)" stroke="#c4d8cc"/>
+<text x="52" y="104" font-size="11">01 / VISUAL INPUT</text><rect x="51" y="120" width="151" height="111" rx="9" fill="#dce9dc"/>
+<path d="M65 207L130 164 190 190 127 224Z" fill="#b6cdbb"/><path d="M129 166L129 134 157 121 157 175" fill="none" stroke="#608b79" stroke-width="11" stroke-linejoin="round"/>
+<circle cx="129" cy="163" r="9" fill="#ecf0ce"/><rect x="87" y="177" width="22" height="22" rx="4" fill="#c28761"/>
+<rect x="51" y="245" width="151" height="37" rx="8" fill="#fff"/><text x="126" y="268" text-anchor="middle" font-size="10">“Pick up the block”</text>
+<path d="M229 190H267M256 181L267 190 256 199" fill="none" stroke="#678a7d" stroke-width="2"/>
+<rect x="278" y="111" width="162" height="168" rx="14" fill="#205a58"/><text x="359" y="139" text-anchor="middle" font-size="11" fill="#c8e9dc">02 / ALIGNMENT</text>
+<g fill="#a7d3bd"><rect x="298" y="160" width="26" height="26" rx="5"/><rect x="331" y="160" width="26" height="26" rx="5"/><rect x="364" y="160" width="26" height="26" rx="5"/><rect x="397" y="160" width="23" height="26" rx="5"/></g>
+<path d="M313 195L342 222 377 200 408 229M313 230L343 201 377 230 408 198" stroke="#98cbb8" fill="none"/>
+<text x="359" y="259" text-anchor="middle" font-size="10" fill="#d3e6d9">Structured tokens</text>
+<path d="M451 190H489M478 181L489 190 478 199" fill="none" stroke="#678a7d" stroke-width="2"/>
+<rect x="500" y="79" width="185" height="223" rx="14" fill="url(#panel)" stroke="#c4d8cc"/>
+<text x="518" y="104" font-size="11">03 / ACTION OUTPUT</text>
+<path d="M525 240C535 180 561 244 580 177S619 134 657 149" stroke="#3d8880" stroke-width="3" fill="none"/>
+<path d="M525 240H657M525 135V255" stroke="#b2cdbd" fill="none"/>
+<circle cx="580" cy="177" r="6" fill="#d9aa74"/><circle cx="657" cy="149" r="6" fill="#3d8880"/>
+<text x="592" y="279" text-anchor="middle" font-size="10">Action sequence</text>
+<text x="360" y="352" text-anchor="middle" font-size="16">OBSERVE → GROUND → ACT</text><path d="M32 397H688" stroke="#164b50" stroke-opacity=".15"/><text x="32" y="421" font-size="10" letter-spacing="1.5">SJING / RESEARCH COLLECTION</text><text x="688" y="421" text-anchor="end" font-size="10">ILLUSTRATIVE ONLY</text></g></svg>

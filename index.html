@@ -52,7 +52,7 @@
     <nav class="desktop-nav" aria-label="主导航">
       <a class="nav-link active" href="#home" data-zh="首页" data-en="Home">首页</a>
       <a class="nav-link" href="#about" data-zh="关于" data-en="About">关于</a>
-      <a class="nav-link" href="#research" data-zh="研究" data-en="Research">研究</a>
+      <a class="nav-link" href="research/" data-zh="研究" data-en="Research">研究</a>
       <a class="nav-link" href="notes/" data-zh="学习笔记" data-en="Learning Notes">学习笔记</a>
       <a class="nav-link" href="#profile-contact" data-zh="联系" data-en="Contact">联系</a>
     </nav>
@@ -77,7 +77,7 @@
   <nav class="mobile-menu" id="mobile-menu" aria-label="移动端导航" aria-hidden="true">
     <a href="#home"><span>01</span><b data-zh="首页" data-en="Home">首页</b></a>
     <a href="#about"><span>02</span><b data-zh="关于" data-en="About">关于</b></a>
-    <a href="#research"><span>03</span><b data-zh="研究" data-en="Research">研究</b></a>
+    <a href="research/"><span>03</span><b data-zh="研究" data-en="Research">研究</b></a>
     <a href="notes/"><span>04</span><b data-zh="学习笔记" data-en="Learning Notes">学习笔记</b></a>
     <a href="#profile-contact"><span>05</span><b data-zh="联系" data-en="Contact">联系</b></a>
   </nav>
@@ -264,64 +264,16 @@
             <time>2026</time>
           </div>
 
-          <section class="content-section" id="research">
+          <section class="content-section" id="research" aria-labelledby="research-entry-title">
             <div class="section-heading reveal">
-              <div class="section-label"><span>02</span><i></i><b data-zh="研究兴趣" data-en="Research interests">研究兴趣</b></div>
-              <div>
-                <h2 data-zh="关注的方向" data-en="What I explore">关注的方向</h2>
-                <p data-zh="从多模态感知到具身决策。" data-en="From multimodal perception to embodied decision-making.">从多模态感知到具身决策。</p>
-              </div>
+              <div class="section-label"><span>02</span><i></i><b data-zh="研究" data-en="Research">研究</b></div>
+              <div><h2 id="research-entry-title" data-zh="论文与项目" data-en="Papers &amp; projects">论文与项目</h2></div>
             </div>
-
-            <div class="research-grid">
-              <article class="research-card reveal" data-tilt>
-                <span class="card-index">01</span>
-                <div class="research-icon icon-vla" aria-hidden="true">
-                  <svg viewBox="0 0 64 64"><circle cx="17" cy="19" r="7"/><circle cx="47" cy="17" r="5"/><circle cx="42" cy="46" r="8"/><path d="M22 22l15 19M24 18h18M19 26l17 17"/></svg>
-                </div>
-                <h3 data-zh="视觉-语言-行动" data-en="Vision-Language-Action">视觉-语言-行动</h3>
-                <p data-zh="理解视觉与语言指令，并将其转化为可泛化、可靠的动作序列。" data-en="Grounding visual and language instructions into generalizable, reliable action sequences.">
-                  理解视觉与语言指令，并将其转化为可泛化、可靠的动作序列。
-                </p>
-                <span class="card-tag">VLA</span>
-              </article>
-
-              <article class="research-card reveal" data-tilt>
-                <span class="card-index">02</span>
-                <div class="research-icon icon-world" aria-hidden="true">
-                  <svg viewBox="0 0 64 64"><path d="M12 40c8-18 32-18 40 0M17 42h30M23 44v6M41 44v6"/><circle cx="25" cy="29" r="3"/><circle cx="39" cy="29" r="3"/></svg>
-                </div>
-                <h3 data-zh="世界模型" data-en="World Models">世界模型</h3>
-                <p data-zh="学习环境动力学，为视频预测、规划与长时决策建立内部模拟器。" data-en="Learning environment dynamics as an internal simulator for prediction, planning, and long-horizon decisions.">
-                  学习环境动力学，为视频预测、规划与长时决策建立内部模拟器。
-                </p>
-                <span class="card-tag">WM</span>
-              </article>
-
-              <article class="research-card reveal" data-tilt>
-                <span class="card-index">03</span>
-                <div class="research-icon icon-gen" aria-hidden="true">
-                  <svg viewBox="0 0 64 64"><path d="M32 8l4 14 14 4-14 4-4 14-4-14-14-4 14-4zM48 40l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/></svg>
-                </div>
-                <h3 data-zh="生成式模型" data-en="Generative Models">生成式模型</h3>
-                <p data-zh="探索高质量、可控制且具备一致性的图像、视频与多模态内容生成。" data-en="Exploring high-quality, controllable, and consistent image, video, and multimodal generation.">
-                  探索高质量、可控制且具备一致性的图像、视频与多模态内容生成。
-                </p>
-                <span class="card-tag">GEN</span>
-              </article>
-
-              <article class="research-card reveal" data-tilt>
-                <span class="card-index">04</span>
-                <div class="research-icon icon-3d" aria-hidden="true">
-                  <svg viewBox="0 0 64 64"><path d="M32 8l20 11v25L32 56 12 44V19zM12 19l20 12 20-12M32 31v25"/></svg>
-                </div>
-                <h3 data-zh="三维重建" data-en="3D Reconstruction">三维重建</h3>
-                <p data-zh="从图像与视频恢复可编辑、可渲染、可交互的三维空间表示。" data-en="Recovering editable, renderable, and interactive 3D representations from images and video.">
-                  从图像与视频恢复可编辑、可渲染、可交互的三维空间表示。
-                </p>
-                <span class="card-tag">3D</span>
-              </article>
-            </div>
+            <a class="notes-entry reveal" href="research/">
+              <span class="notes-entry-icon" aria-hidden="true">⌘</span>
+              <span><strong data-zh="查看研究成果" data-en="Explore my research">查看研究成果</strong><small data-zh="论文发表、项目实践与个人贡献。" data-en="Publications, projects, and individual contributions.">论文发表、项目实践与个人贡献。</small></span>
+              <span class="entry-arrow" aria-hidden="true">↗</span>
+            </a>
           </section>
 
           <!-- Retain the old fragment so existing #projects links still reach the notes entry. -->

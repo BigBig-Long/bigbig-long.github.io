@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" role="img" aria-labelledby="title desc">
+<title id="title">WorldSketch — fictional research concept</title><desc id="desc">Illustrative demo figure, not an experimental result or actual product screenshot.</desc>
+<defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#4c526d" stroke-opacity=".045"/></pattern><linearGradient id="panel" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#efeff5"/></linearGradient></defs>
+<rect width="720" height="440" fill="#efeff5"/><rect width="720" height="440" fill="url(#grid)"/>
+<g font-family="Arial, sans-serif" fill="#4c526d"><text x="32" y="35" font-size="12" letter-spacing="2">WORLDSKETCH</text><text x="688" y="35" text-anchor="end" font-size="10" letter-spacing="1">CONCEPT / DEMO</text>
+<rect x="35" y="127" width="155" height="172" rx="15" fill="#fffefa" stroke="#d6d7d6"/>
+<text x="112" y="154" text-anchor="middle" font-size="11">OBSERVATION</text><rect x="61" y="179" width="34" height="60" rx="6" fill="#c4badd"/><rect x="106" y="206" width="59" height="33" rx="6" fill="#adcbcc"/><path d="M57 253H168" stroke="#c1c6d0"/>
+<path d="M198 213H243M232 204L243 213 232 222" stroke="#928eac" stroke-width="2" fill="none"/>
+<rect x="252" y="158" width="148" height="110" rx="15" fill="#555a78"/><text x="326" y="191" text-anchor="middle" fill="#eef0fd" font-size="11">LATENT DYNAMICS</text>
+<g fill="#cbc6e7"><circle cx="291" cy="222" r="9"/><circle cx="326" cy="222" r="9"/><circle cx="361" cy="222" r="9"/></g>
+<g stroke="#a0a2b9" stroke-width="2" fill="none"><path d="M410 212H430L479 110M430 212H479M430 212L479 318"/></g>
+<g fill="#fffefa" stroke="#d4d8df"><rect x="484" y="72" width="199" height="76" rx="12"/><rect x="484" y="175" width="199" height="76" rx="12"/><rect x="484" y="279" width="199" height="76" rx="12"/></g>
+<g font-size="11"><text x="505" y="96">FUTURE A</text><text x="505" y="199">FUTURE B</text><text x="505" y="303">FUTURE C</text></g>
+<g fill="#bab1d4"><rect x="509" y="109" width="33" height="22" rx="4"/><rect x="552" y="212" width="33" height="22" rx="4"/><rect x="600" y="317" width="33" height="22" rx="4"/></g>
+<g fill="#91b6b5"><circle cx="607" cy="120" r="11"/><circle cx="631" cy="223" r="11"/><circle cx="542" cy="327" r="11"/></g>
+<path d="M473 166H695V260H473Z" fill="none" stroke="#aaa5c9" stroke-dasharray="5 5"/>
+<text x="35" y="355" font-size="12">One observation. Multiple possible futures.</text><path d="M32 397H688" stroke="#4c526d" stroke-opacity=".15"/><text x="32" y="421" font-size="10" letter-spacing="1.5">SJING / RESEARCH COLLECTION</text><text x="688" y="421" text-anchor="end" font-size="10">ILLUSTRATIVE ONLY</text></g></svg>
