@@ -28,6 +28,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
   <link rel="preload" href="assets/forest-hero.png" as="image">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="notes.css">
 </head>
 
 <body>
@@ -52,7 +53,7 @@
       <a class="nav-link active" href="#home" data-zh="首页" data-en="Home">首页</a>
       <a class="nav-link" href="#about" data-zh="关于" data-en="About">关于</a>
       <a class="nav-link" href="#research" data-zh="研究" data-en="Research">研究</a>
-      <a class="nav-link" href="#projects" data-zh="项目" data-en="Projects">项目</a>
+      <a class="nav-link" href="notes/" data-zh="学习笔记" data-en="Learning Notes">学习笔记</a>
       <a class="nav-link" href="#profile-contact" data-zh="联系" data-en="Contact">联系</a>
     </nav>
 
@@ -77,9 +78,8 @@
     <a href="#home"><span>01</span><b data-zh="首页" data-en="Home">首页</b></a>
     <a href="#about"><span>02</span><b data-zh="关于" data-en="About">关于</b></a>
     <a href="#research"><span>03</span><b data-zh="研究" data-en="Research">研究</b></a>
-    <a href="#projects"><span>04</span><b data-zh="项目" data-en="Projects">项目</b></a>
+    <a href="notes/"><span>04</span><b data-zh="学习笔记" data-en="Learning Notes">学习笔记</b></a>
     <a href="#profile-contact"><span>05</span><b data-zh="联系" data-en="Contact">联系</b></a>
-    <a href="front-end_development_page.html">06 连续 </a> <!--这里是要新加的页面 -->
   </nav>
 
 <!-- <main> 是 HTML5 引入的语义化标签, 用于定义页面的主要内容。（表示接下来的内容是页面的主要内容）
@@ -164,7 +164,7 @@
       <div class="hero-stats" aria-label="概览">
         <div><strong>04</strong><span data-zh="研究方向" data-en="Research fields">研究方向</span></div>
         <i></i>
-        <div><strong>03</strong><span data-zh="精选主题" data-en="Featured topics">精选主题</span></div>
+        <div><strong>01</strong><span data-zh="学习笔记" data-en="Learning note">学习笔记</span></div>
         <i></i>
         <div><strong>∞</strong><span data-zh="保持好奇" data-en="Stay curious">保持好奇</span></div>
       </div>
@@ -249,8 +249,8 @@
               <p data-zh="我的主要研究兴趣横跨视觉与语言、生成式学习和空间智能。我希望把模型从“看懂”世界推进到能够预测、规划并可靠地参与其中。" data-en="My interests span vision and language, generative learning, and spatial intelligence. I want to move models from simply seeing the world toward predicting, planning, and participating in it reliably.">
                 我的主要研究兴趣横跨视觉与语言、生成式学习和空间智能。我希望把模型从“看懂”世界推进到能够预测、规划并可靠地参与其中。
               </p>
-              <p data-zh="这里记录我的学习轨迹、研究主题与项目探索。它会随着新的问题和答案持续生长。" data-en="This space documents my learning journey, research themes, and project explorations. It will keep growing with new questions and answers.">
-                这里记录我的学习轨迹、研究主题与项目探索。它会随着新的问题和答案持续生长。
+              <p data-zh="这里记录我的学习轨迹、研究主题与学习体会。它会随着新的问题和答案持续生长。" data-en="This space documents my learning journey, research themes, and reflections. It will keep growing with new questions and answers.">
+                这里记录我的学习轨迹、研究主题与学习体会。它会随着新的问题和答案持续生长。
               </p>
             </div>
           </article>
@@ -324,67 +324,20 @@
             </div>
           </section>
 
-          <section class="content-section projects-section" id="projects">
+          <!-- Retain the old fragment so existing #projects links still reach the notes entry. -->
+          <section class="content-section" id="projects" aria-labelledby="notes-entry-title">
             <div class="section-heading reveal">
-              <div class="section-label"><span>03</span><i></i><b data-zh="项目探索" data-en="Project explorations">项目探索</b></div>
+              <div class="section-label"><span>03</span><i></i><b data-zh="学习笔记" data-en="Learning notes">学习笔记</b></div>
               <div>
-                <h2 data-zh="正在构建的想法" data-en="Ideas in progress">正在构建的想法</h2>
-                <p data-zh="以研究问题为起点，让想法落地。" data-en="Turning research questions into tangible experiments.">以研究问题为起点，让想法落地。</p>
+                <h2 id="notes-entry-title" data-zh="把学过的，变成自己的" data-en="Learning, in my own words">把学过的，变成自己的</h2>
+                <p data-zh="记录理解、问题与实践中的收获。" data-en="Notes on understanding, questions, and practice.">记录理解、问题与实践中的收获。</p>
               </div>
             </div>
-
-            <div class="project-list">
-              <article class="project-card project-vla reveal">
-                <div class="project-visual" aria-hidden="true">
-                  <div class="robot-head"><i></i><i></i></div>
-                  <div class="signal s1"></div><div class="signal s2"></div><div class="signal s3"></div>
-                  <span class="visual-label">VISION → LANGUAGE → ACTION</span>
-                </div>
-                <div class="project-content">
-                  <div class="project-topline"><span>01 / RESEARCH NOTE</span><b>VLA</b></div>
-                  <h3 data-zh="通向通用机器人的多模态接口" data-en="A multimodal interface for generalist robots">通向通用机器人的多模态接口</h3>
-                  <p data-zh="整理 VLA 模型的数据、表征与策略学习路径，关注泛化能力与真实部署中的可靠性。" data-en="Mapping the data, representation, and policy-learning landscape of VLA models, with a focus on generalization and real-world reliability.">
-                    整理 VLA 模型的数据、表征与策略学习路径，关注泛化能力与真实部署中的可靠性。
-                  </p>
-                  <div class="project-tags"><span>Multimodal</span><span>Robotics</span><span>Policy</span></div>
-                </div>
-              </article>
-
-              <article class="project-card project-world reveal">
-                <div class="project-visual" aria-hidden="true">
-                  <div class="world-orbit orbit-one"></div>
-                  <div class="world-orbit orbit-two"></div>
-                  <div class="world-core"></div>
-                  <span class="visual-label">OBSERVE → IMAGINE → PLAN</span>
-                </div>
-                <div class="project-content">
-                  <div class="project-topline"><span>02 / CONCEPT LAB</span><b>WORLD MODEL</b></div>
-                  <h3 data-zh="可交互的世界模型实验场" data-en="An interactive playground for world models">可交互的世界模型实验场</h3>
-                  <p data-zh="用可视化实验理解潜空间动力学、动作条件预测，以及模型如何在想象中完成规划。" data-en="Visual experiments for understanding latent dynamics, action-conditioned prediction, and planning inside imagination.">
-                    用可视化实验理解潜空间动力学、动作条件预测，以及模型如何在想象中完成规划。
-                  </p>
-                  <div class="project-tags"><span>Dynamics</span><span>Planning</span><span>Simulation</span></div>
-                </div>
-              </article>
-
-              <article class="project-card project-3d reveal">
-                <div class="project-visual" aria-hidden="true">
-                  <div class="cube">
-                    <span class="face face-front"></span><span class="face face-back"></span>
-                    <span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span>
-                  </div>
-                  <span class="visual-label">2D OBSERVATIONS → 3D SPACE</span>
-                </div>
-                <div class="project-content">
-                  <div class="project-topline"><span>03 / EXPLORATION</span><b>3D VISION</b></div>
-                  <h3 data-zh="从二维观察恢复三维空间" data-en="Recovering 3D space from 2D observations">从二维观察恢复三维空间</h3>
-                  <p data-zh="探索多视角几何与神经场表示，追求更高效、更真实且易于编辑的空间重建。" data-en="Exploring multi-view geometry and neural field representations for efficient, realistic, and editable reconstruction.">
-                    探索多视角几何与神经场表示，追求更高效、更真实且易于编辑的空间重建。
-                  </p>
-                  <div class="project-tags"><span>Neural Fields</span><span>Geometry</span><span>Rendering</span></div>
-                </div>
-              </article>
-            </div>
+            <a class="notes-entry reveal" href="notes/">
+              <span class="notes-entry-icon" aria-hidden="true">✎</span>
+              <span><strong data-zh="打开我的学习笔记" data-en="Explore my learning notes">打开我的学习笔记</strong><small data-zh="从 Diffusion 开始，一点点积累。" data-en="Starting with Diffusion, one idea at a time.">从 Diffusion 开始，一点点积累。</small></span>
+              <span class="entry-arrow" aria-hidden="true">↗</span>
+            </a>
           </section>
 
           <section class="content-section path-section">

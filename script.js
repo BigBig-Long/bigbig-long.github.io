@@ -89,6 +89,7 @@
   };
 
   const renderInsight = (lang, animate = false) => {
+    if (!insightText || !insightIndex) return;
     const update = () => {
       insightText.textContent = insights[currentInsightIndex][lang];
       insightIndex.textContent = `${String(currentInsightIndex + 1).padStart(2, "0")} / ${String(insights.length).padStart(2, "0")}`;
@@ -103,7 +104,7 @@
     }
   };
 
-  chooseInsight();
+  if (insightText) chooseInsight();
 
   const languageMeta = {
     zh: {
@@ -137,8 +138,9 @@
     });
 
     root.lang = meta.htmlLang;
-    document.title = meta.title;
-    document.querySelector('meta[name="description"]').content = meta.description;
+    document.title = document.querySelector("title").dataset[safeLang] || meta.title;
+    const description = document.querySelector('meta[name="description"]');
+    description.content = description.dataset[safeLang] || meta.description;
     menuButton.setAttribute("aria-label", mobileMenu.classList.contains("open") ? meta.menuClose : meta.menuOpen);
     storage.set("sjing-language", safeLang);
     renderInsight(safeLang);
@@ -148,7 +150,7 @@
     button.addEventListener("click", () => applyLanguage(button.dataset.lang));
   });
 
-  insightRefresh.addEventListener("click", () => {
+  insightRefresh?.addEventListener("click", () => {
     chooseInsight();
     renderInsight(root.lang.startsWith("en") ? "en" : "zh", true);
   });
@@ -157,7 +159,7 @@
   applyLanguage(savedLanguage === "en" ? "en" : "zh");
 
   const copyButton = document.querySelector("#copy-email");
-  const copyLabel = copyButton.querySelector(".copy-label");
+  const copyLabel = copyButton?.querySelector(".copy-label");
   const copyFeedback = document.querySelector("#copy-feedback");
 
   const copyEmail = async () => {
@@ -190,7 +192,7 @@
     }
   };
 
-  copyButton.addEventListener("click", copyEmail);
+  copyButton?.addEventListener("click", copyEmail);
 
   const setMenu = (open) => {
     mobileMenu.classList.toggle("open", open);
@@ -204,11 +206,17 @@
   menuButton.addEventListener("click", () => setMenu(!mobileMenu.classList.contains("open")));
   mobileMenu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenu(false);
+    if (event.key === "Escape" && mobileMenu.classList.contains("open")) {
+      setMenu(false);
+      menuButton.focus();
+    }
+  });
+  window.matchMedia("(max-width: 980px)").addEventListener("change", (event) => {
+    if (!event.matches) setMenu(false);
   });
 
   const handleScroll = () => {
-    header.classList.toggle("scrolled", window.scrollY > 28);
+    header.classList.toggle("scrolled", document.body.classList.contains("notes-page") || window.scrollY > 28);
   };
 
   handleScroll();
@@ -228,8 +236,10 @@
     else revealObserver.observe(element);
   });
 
-  const sectionLinks = [...document.querySelectorAll(".desktop-nav .nav-link")];
-  const sectionTargets = [...document.querySelectorAll("main section[id]")];
+  const sectionLinks = [...document.querySelectorAll('.desktop-nav .nav-link[href^="#"]')];
+  const sectionTargets = sectionLinks
+    .map((link) => document.getElementById(link.hash.slice(1)))
+    .filter(Boolean);
   const spyObserver = new IntersectionObserver((entries) => {
     const visible = entries
       .filter((entry) => entry.isIntersecting)
@@ -245,7 +255,7 @@
   sectionTargets.forEach((section) => spyObserver.observe(section));
 
   const glow = document.querySelector(".cursor-glow");
-  if (window.matchMedia("(pointer: fine)").matches) {
+  if (glow && window.matchMedia("(pointer: fine)").matches) {
     window.addEventListener("pointermove", (event) => {
       glow.style.opacity = "1";
       glow.style.left = `${event.clientX}px`;
@@ -267,7 +277,7 @@
   }
 
   const hero = document.querySelector(".hero");
-  hero.addEventListener("pointerdown", (event) => {
+  hero?.addEventListener("pointerdown", (event) => {
     if (reduceMotion || event.target.closest("a, button")) return;
     const colors = ["#78e0d7", "#ff8878", "#f2c66d", "#ffffff"];
     for (let i = 0; i < 7; i += 1) {
@@ -287,7 +297,9 @@
 
   const initStarCanvas = () => {
     const canvas = document.querySelector("#star-canvas");
+    if (!canvas) return;
     const context = canvas.getContext("2d");
+    if (!context) return;
     let width = 0;
     let height = 0;
     let stars = [];
@@ -329,7 +341,7 @@
         context.fillStyle = `rgba(224, 253, 255, ${star.alpha * shimmer})`;
         context.fill();
       });
-      animationId = requestAnimationFrame(draw);
+      if (!reduceMotion) animationId = requestAnimationFrame(draw);
     };
 
     hero.addEventListener("pointermove", (event) => {
@@ -352,7 +364,9 @@
 
   const initWaveCanvas = () => {
     const canvas = document.querySelector("#wave-canvas");
+    if (!canvas) return;
     const context = canvas.getContext("2d");
+    if (!context) return;
     let width = 0;
     let height = 0;
     let animationId;
@@ -388,7 +402,7 @@
       drawWave(time, height * .48, 13, 105, "rgba(20, 109, 125, .28)", .7);
       drawWave(time, height * .61, 16, 130, "rgba(9, 77, 98, .42)", .5);
       drawWave(time, height * .75, 10, 84, "rgba(4, 45, 66, .78)", .8);
-      animationId = requestAnimationFrame(draw);
+      if (!reduceMotion) animationId = requestAnimationFrame(draw);
     };
 
     resize();

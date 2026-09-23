@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Diffusion 扩散模型学习笔记：概念理解、学习体会与待探索的问题。" data-zh="Diffusion 扩散模型学习笔记：概念理解、学习体会与待探索的问题。" data-en="A Diffusion learning note: intuition, reflections, and open questions. The article is in Chinese.">
+  <meta name="theme-color" content="#082d3d">
+  <title data-zh="Diffusion：理解与体会 · SJing" data-en="Diffusion: Understanding & Reflections · SJing">Diffusion：理解与体会 · SJing</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✦%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../notes.css">
+</head>
+<body class="notes-page">
+  <a class="skip-link" href="#main-content" data-zh="跳到主要内容" data-en="Skip to content">跳到主要内容</a>
+  <header class="site-header scrolled" id="top">
+    <a class="brand" href="../index.html" aria-label="SJing 首页 / Home"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-name">SJING<span class="brand-dot">.</span></span></a>
+    <nav class="desktop-nav" aria-label="主导航 / Main navigation">
+      <a class="nav-link" href="../index.html#home" data-zh="首页" data-en="Home">首页</a>
+      <a class="nav-link" href="../index.html#about" data-zh="关于" data-en="About">关于</a>
+      <a class="nav-link" href="../index.html#research" data-zh="研究" data-en="Research">研究</a>
+      <a class="nav-link active" href="./" aria-current="page" data-zh="学习笔记" data-en="Learning Notes">学习笔记</a>
+      <a class="nav-link" href="../index.html#profile-contact" data-zh="联系" data-en="Contact">联系</a>
+    </nav>
+    <div class="header-actions">
+      <div class="language-switch" role="group" aria-label="语言切换 / Language">
+        <button class="lang-button active" type="button" data-lang="zh" aria-pressed="true">中</button><span aria-hidden="true"></span>
+        <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-button" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="移动端导航 / Mobile navigation" aria-hidden="true">
+    <a href="../index.html#home"><span>01</span><b  data-zh="首页" data-en="Home">首页</b></a>
+    <a href="../index.html#about"><span>02</span><b  data-zh="关于" data-en="About">关于</b></a>
+    <a href="../index.html#research"><span>03</span><b  data-zh="研究" data-en="Research">研究</b></a>
+    <a href="./" aria-current="page"><span>04</span><b  data-zh="学习笔记" data-en="Learning Notes">学习笔记</b></a>
+    <a href="../index.html#profile-contact"><span>05</span><b  data-zh="联系" data-en="Contact">联系</b></a>
+  </nav>
+  <main class="notes-main" id="main-content" tabindex="-1">
+    <nav class="breadcrumbs" aria-label="面包屑 / Breadcrumb">
+      <a href="../index.html" data-zh="首页" data-en="Home">首页</a><span aria-hidden="true">/</span><a href="./" data-zh="学习笔记" data-en="Learning notes">学习笔记</a><span aria-hidden="true">/</span><span aria-current="page">Diffusion</span>
+    </nav>
+    <header class="note-header">
+      <p class="notes-kicker">LEARNING NOTE / 001</p>
+      <h1  data-zh="Diffusion：理解与体会" data-en="Diffusion: understanding &amp; reflections">Diffusion：理解与体会</h1>
+      <p class="notes-lead" data-zh="从噪声出发，理解生成。" data-en="Understanding generation, starting from noise.">从噪声出发，理解生成。</p>
+      <div class="note-meta"><span>Diffusion · DDPM</span><span>／</span><span  data-zh="示例草稿 · 待完善" data-en="Example draft · In progress">示例草稿 · 待完善</span></div>
+    </header>
+    <div class="reading-layout">
+      <aside class="note-toc" aria-labelledby="toc-title">
+        <p class="notes-kicker">ON THIS PAGE</p>
+        <h2 id="toc-title" data-zh="本页目录" data-en="Contents">本页目录</h2>
+        <nav aria-label="笔记目录 / Note contents">
+          <a href="#intuition" data-zh="01  直观理解" data-en="01  Intuition">01  直观理解</a>
+          <a href="#key-ideas" data-zh="02  理解线索" data-en="02  Key ideas">02  理解线索</a>
+          <a href="#reflections" data-zh="03  我的学习体会" data-en="03  Personal reflections">03  我的学习体会</a>
+          <a href="#questions" data-zh="04  待探索的问题" data-en="04  Open questions">04  待探索的问题</a>
+          <a href="#references" data-zh="05  参考资料" data-en="05  References">05  参考资料</a>
+        </nav>
+        <a class="toc-back" href="./" data-zh="← 全部学习笔记" data-en="← All learning notes">← 全部学习笔记</a>
+      </aside>
+      <!-- Edit the article below to add personal notes. The Chinese text remains Chinese when the navigation switches to English. -->
+      <article class="note-prose" lang="zh-CN" aria-label="Diffusion 中文笔记">
+        <div class="draft-notice"><strong>这是一篇待完善的笔记</strong><p>以下概念说明为示例，个人体会与实验记录待补充。笔记正文以中文记录。</p></div>
+        <section id="intuition" aria-labelledby="intuition-title">
+          <p class="prose-index">01 / INTUITION</p>
+          <h2 id="intuition-title">先建立一个直观理解</h2>
+          <p>扩散模型的一条基本思路是：先定义一个逐步向数据添加噪声的过程，再训练模型学习反向去噪。生成时，从随机噪声出发，通过多步更新逐渐得到新的样本。</p>
+          <figure class="process-figure">
+            <div><span>训练数据</span><i aria-hidden="true">→</i><span>逐步加噪</span><i aria-hidden="true">→</i><span>接近纯噪声</span></div>
+            <div><span>新的样本</span><i aria-hidden="true">←</i><span>学习去噪</span><i aria-hidden="true">←</i><span>随机噪声</span></div>
+            <figcaption>上：正向加噪过程。下：反向生成过程的概念示意。</figcaption>
+          </figure>
+          <p class="note-takeaway"><strong>小结</strong>通过学习不同噪声程度下的去噪任务，模型可以从噪声逐步生成数据。</p>
+        </section>
+        <section id="key-ideas" aria-labelledby="key-ideas-title">
+          <p class="prose-index">02 / KEY IDEAS</p>
+          <h2 id="key-ideas-title">把理解拆成三个问题</h2>
+          <h3>正向过程做了什么？</h3>
+          <p>在 DDPM 中，正向过程按预设的噪声调度逐步加入高斯噪声。它提供不同噪声程度的训练输入，本身通常不需要学习。</p>
+          <h3>模型在学习什么？</h3>
+          <p>常见的 DDPM 训练方式让网络接收带噪样本与时间步，预测其中的噪声，并用预测噪声与实际加入噪声之间的误差构造训练目标。</p>
+          <h3>生成时发生了什么？</h3>
+          <p>生成从随机噪声开始，利用模型的预测逐步更新样本。它学习的是数据分布中的统计规律，并不是把某张训练图片的加噪轨迹原样倒放。</p>
+          <p class="note-takeaway"><strong>小结</strong>正向过程构造训练任务，神经网络学习去噪规律，采样过程利用这些规律生成新样本。</p>
+        </section>
+        <section id="reflections" aria-labelledby="reflections-title">
+          <p class="prose-index">03 / REFLECTIONS</p>
+          <h2 id="reflections-title">我的学习体会</h2>
+          <p class="section-intro">留给自己的记录区，可以从下面几个角度逐渐补充。</p>
+          <div class="reflection-prompts">
+            <div><h3>从哪里开始理解？</h3><p>待补充：最初的困惑是什么？哪一个解释、公式或实验帮助自己建立了直觉？</p></div>
+            <div><h3>实践带来了什么发现？</h3><p>待补充：实验设置、观察到的结果、遇到的问题，以及解决问题的过程。</p></div>
+            <div><h3>现在会怎样解释它？</h3><p>待补充：用自己的话写一段总结，区分已经理解的部分和仍不确定的部分。</p></div>
+          </div>
+        </section>
+        <section id="questions" aria-labelledby="questions-title">
+          <p class="prose-index">04 / QUESTIONS</p>
+          <h2 id="questions-title">接下来想弄清楚的问题</h2>
+          <p class="section-intro">以下问题可作为继续阅读与实验的起点。</p>
+          <ul><li>噪声调度如何影响训练和生成效果？</li><li>减少采样步数时，速度与质量如何权衡？</li><li>文本、图像或动作等条件如何进入去噪网络？</li></ul>
+        </section>
+        <section id="references" aria-labelledby="references-title">
+          <p class="prose-index">05 / REFERENCES</p>
+          <h2 id="references-title">参考资料</h2>
+          <a class="reference-link" href="https://arxiv.org/abs/2006.11239"><span><strong>Denoising Diffusion Probabilistic Models</strong><small>Jonathan Ho, Ajay Jain, Pieter Abbeel · 2020 · arXiv:2006.11239</small></span><span aria-hidden="true">↗</span></a>
+          <p class="section-intro">上面的概念示例参考 DDPM 论文；个人理解与实验结论可在阅读和实践后继续补充。</p>
+        </section>
+        <div class="note-end"><span aria-hidden="true">✦</span><p>理解是一个持续更新的过程。</p><a href="./" data-zh="← 返回学习笔记" data-en="← Back to learning notes">← 返回学习笔记</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="notes-footer">
+    <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">S</span><span>SJING.</span></a>
+    <p>© <span id="current-year">2026</span> SJing · <span  data-zh="保持好奇，持续记录。" data-en="Stay curious. Keep taking notes.">保持好奇，持续记录。</span></p>
+    <a href="#top" data-zh="返回顶部 ↑" data-en="Back to top ↑">返回顶部 ↑</a>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>
