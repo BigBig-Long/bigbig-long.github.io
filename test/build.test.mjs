@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, cp, readFile, writeFile, rm, readdir } from 'node:fs/promises';
+import { mkdtemp, mkdir, cp, readFile, writeFile, rm, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -30,7 +30,10 @@ test('publishing, updating and deleting a note regenerate index and pages; sourc
   const fixture = await mkdtemp(join(tmpdir(), 'sjing-build-'));
   try {
     const source = fileURLToPath(new URL('..', import.meta.url));
-    for (const path of ['templates', 'content', 'admin', 'assets', 'research', 'index.html', 'styles.css', 'notes.css', 'script.js']) await cp(join(source, path), join(fixture, path), { recursive: true });
+    for (const path of ['templates', 'admin', 'assets', 'research', 'index.html', 'styles.css', 'notes.css', 'script.js']) await cp(join(source, path), join(fixture, path), { recursive: true });
+    // Keep the fixture independent of notes created, edited or deleted through the CMS.
+    await mkdir(join(fixture, 'content/notes'), { recursive: true });
+    await writeFile(join(fixture, 'content/notes/existing-note.md'), note.replace('slug: test-note', 'slug: existing-note'));
     await writeFile(join(fixture, 'content/notes/test-note.md'), note);
     assert.equal(await build(fixture), 2);
     const homepage = parseHtml(await readFile(join(fixture, '_site/index.html'), 'utf8'));
@@ -49,9 +52,9 @@ test('publishing, updating and deleting a note regenerate index and pages; sourc
     assert.match(await readFile(join(fixture, '_site/notes/test-note.html'), 'utf8'), /修改后的内容/);
     await rm(join(fixture, 'content/notes/test-note.md'));
     assert.equal(await build(fixture), 1);
-    assert.deepEqual((await readdir(join(fixture, '_site/notes'))).sort(), ['diffusion.html', 'index.html']);
+    assert.deepEqual((await readdir(join(fixture, '_site/notes'))).sort(), ['existing-note.html', 'index.html']);
     assert.ok(!(await readdir(join(fixture, '_site'))).some(name => ['auth', 'test', 'node_modules', 'content'].includes(name)));
-    await rm(join(fixture, 'content/notes/diffusion.md'));
+    await rm(join(fixture, 'content/notes/existing-note.md'));
     // Git removes an empty content directory when the final note is deleted.
     await rm(join(fixture, 'content/notes'), { recursive: true });
     assert.equal(await build(fixture), 0);

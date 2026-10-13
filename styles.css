@@ -331,7 +331,7 @@ svg {
   position: absolute;
   z-index: -5;
   inset: -4%;
-  background-image: url("assets/forest-hero.png");
+  background-image: url("assets/forest-hero.png?v=clean-20261013");
   background-position: center;
   background-size: cover;
   transform: scale(1.04);
@@ -359,21 +359,6 @@ svg {
   background:
     linear-gradient(180deg, rgba(1, 18, 31, .56) 0%, transparent 30%, transparent 65%, rgba(2, 20, 35, .58) 100%),
     radial-gradient(circle at 53% 54%, rgba(3, 25, 34, .02) 0%, rgba(2, 21, 34, .16) 46%, rgba(1, 15, 28, .5) 100%);
-}
-
-.hero-vignette::after {
-  position: absolute;
-  top: 31%;
-  left: 50%;
-  width: min(930px, 76vw);
-  height: min(470px, 50vh);
-  content: "";
-  background: radial-gradient(ellipse, rgba(5, 39, 47, .32) 0%, rgba(5, 37, 47, .19) 43%, transparent 73%);
-  -webkit-backdrop-filter: blur(10px) saturate(1.08);
-  backdrop-filter: blur(10px) saturate(1.08);
-  -webkit-mask-image: radial-gradient(ellipse, #000 28%, rgba(0, 0, 0, .78) 49%, transparent 75%);
-  mask-image: radial-gradient(ellipse, #000 28%, rgba(0, 0, 0, .78) 49%, transparent 75%);
-  transform: translateX(-50%);
 }
 
 .hero::after {
@@ -1769,15 +1754,6 @@ svg {
 
   .hero-bg {
     background-position: 25% center;
-  }
-
-  .hero-vignette::after {
-    top: 23%;
-    width: 128vw;
-    height: 62vh;
-    background: radial-gradient(ellipse, rgba(5, 39, 47, .4) 0%, rgba(5, 37, 47, .26) 49%, transparent 78%);
-    -webkit-backdrop-filter: blur(22px) saturate(1.05);
-    backdrop-filter: blur(22px) saturate(1.05);
   }
 
   .hero-coordinate,
