@@ -169,3 +169,30 @@
 @media (prefers-reduced-motion: reduce) {
   .notes-entry, .note-card { transition: none; }
 }
+
+/* CMS-generated notes */
+.journal-actions { display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin:0 0 28px; font-size:12px; color:var(--muted); }
+.journal-actions > a:last-child { margin-left:auto; color:var(--teal-dark); }
+.write-note { display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:8px; background:#235f55; color:white; font-size:14px; }
+.write-note:hover { background:#174a42; }
+.note-card + .note-card { margin-top:24px; }
+.note-image-cover { min-height:280px; background:#e1eae3; }
+.note-image-cover img { display:block; width:100%; height:100%; object-fit:cover; }
+.journal-cover { display:flex; flex-direction:column; justify-content:center; padding:34px; color:#d7ece2; background:linear-gradient(140deg,#133f42,#306e60); }
+.journal-cover > span,.journal-cover small { font:10px/1.8 ui-monospace,monospace; letter-spacing:.12em; }
+.journal-cover b { padding:18px 0; color:#b6d7b4; font-size:64px; font-weight:400; }
+.journal-cover strong { margin-bottom:14px; font:32px/1.4 Georgia,serif; overflow-wrap:anywhere; }
+.markdown-body h1 { font-size:30px; line-height:1.4; }
+.markdown-body h2 { margin:40px 0 20px; padding-top:12px; border-top:1px solid #e4eae2; }
+.markdown-body :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top:105px; }
+.markdown-body a { color:#236b61; text-decoration:underline; text-underline-offset:3px; }
+.markdown-body img { max-width:100%; height:auto; border-radius:10px; }
+.markdown-body pre { max-width:100%; overflow:auto; padding:20px; border-radius:10px; color:#d9ede4; background:#153b3c; line-height:1.7; }
+.markdown-body code { font-family:ui-monospace,Consolas,monospace; font-size:.86em; }
+.markdown-body :not(pre) > code { background:#e8eee6; padding:3px 5px; border-radius:4px; }
+.markdown-body blockquote { margin:24px 0; padding:10px 20px; border-left:3px solid #89bdb0; background:#f2f6ef; font-size:14px; }
+.markdown-body table { display:block; width:100%; overflow:auto; border-collapse:collapse; font-size:13px; }
+.markdown-body th,.markdown-body td { padding:10px 14px; border:1px solid #dbe6dc; text-align:left; white-space:nowrap; }
+.markdown-body th { background:#edf3ee; }
+.note-header .note-meta a { color:var(--teal-dark); margin-left:auto; }
+@media (max-width:720px) { .journal-cover { min-height:260px; } .journal-actions { gap:12px; } .journal-actions > a:last-child { margin-left:0; } }

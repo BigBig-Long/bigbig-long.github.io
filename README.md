@@ -1,6 +1,8 @@
 # SJing 的个人主页、研究成果与学习笔记
 
-纯 HTML、CSS、JavaScript 网站，通过 GitHub Pages 发布，无需构建。
+HTML、CSS、JavaScript 个人网站。学习笔记通过 Decap CMS 编辑，GitHub Actions 自动生成并发布到 GitHub Pages。
+
+**首次使用：[按步骤完成 CMS 登录与发布设置](docs/CMS_SETUP.md)。**
 
 - 首页：`index.html`
 - 研究成果：`research/index.html`（访问路径 `/research/`）
@@ -36,27 +38,31 @@
 中英文文案保存在 `data-zh` / `data-en` 中，编辑时需同步更新属性和标签内文字。
 研究页即使关闭 JavaScript，也能显示所有成果并访问详情页。
 
-## 编辑 Diffusion 笔记
+## 在线编辑学习笔记
 
-打开 `notes/diffusion.html`，修改 `<article class="note-prose">` 内的正文。
-目前的概念说明是示例，个人体会与实验记录留有填写提示。补充自己的内容后，可删除
-`.draft-notice` 提示，并同步修改详情页及列表卡片上的“示例草稿 / 待完善”状态。
+首次配置完成后，在 [学习笔记](https://bigbig-long.github.io/notes/) 点击“新建笔记”，
+通过 GitHub 身份验证后写作，点击发布即可保存到仓库并自动更新网站。
+支持标题、简介、日期、标签、图片和可视化 Markdown 编辑，列表、数量、正文页与目录自动生成。
 
-标题和导航使用 `data-zh` / `data-en` 保存中英文文案。修改这类文字时需要同时更新属性
-与标签内的默认文字；页面 `<title>` 与描述的中英文属性也要同步更新。
-正文以中文记录，导航切换到英文时保留中文正文。
+- 编辑器入口：`admin/index.html`；字段配置：`admin/config.yml`
+- 登录服务公开地址：`admin/settings.json`（初始为空，等待站主创建 Worker）
+- 笔记正文：`content/notes/*.md`；Diffusion：`content/notes/diffusion.md`
+- 页面模板：`templates/`；生成脚本：`scripts/build.mjs`
+- 登录认证 Worker：`auth/worker.mjs`（Client Secret 只设置在 Cloudflare）
+- 自动发布：`.github/workflows/deploy.yml`
+- `notes/*.html` 是迁移兼容快照；Actions 发布时会以 Markdown 重新生成，不要再手改这些页面。
 
-## 新增一篇学习笔记
+研究页面仍保持原有 HTML 编辑方式。所有公开页面均可直接访问、刷新和分享；
+正文保持作者编写的语言，导航支持中英文切换。
 
-1. 复制 `notes/diffusion.html`，例如命名为 `notes/transformer.html`。
-2. 修改标题、页面描述、面包屑、标签和正文；同步调整目录链接及对应章节的 `id`。
-3. 在 `notes/index.html` 复制一个 `<article class="note-card">`，更新链接、标题和摘要。
-   新卡片的标题与摘要 `id` 必须唯一，`aria-labelledby` / `aria-describedby` 应同步修改。
-4. 更新列表中的笔记数量及首页概览中的笔记数量。
-5. 提交到 `main` 后，由仓库的 GitHub Pages 发布流程更新网站。
+## 本地预览与检查
 
-所有页面均为真实 HTML 文件，支持直接访问、刷新和分享链接，不依赖前端路由。
+```sh
+npm ci
+npm test
+npm run build
+python -m http.server 8000 --directory _site
+```
 
-## 本地预览
-
-在仓库根目录运行 `python -m http.server 8000`，访问 `http://localhost:8000`。
+访问 `http://localhost:8000`。生产登录仅允许网站正式域名。
+详细设置、日常使用与常见问题请看 [CMS_SETUP.md](docs/CMS_SETUP.md)。

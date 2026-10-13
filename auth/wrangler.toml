@@ -1,0 +1,6 @@
+name = "sjing-notes-auth"
+main = "worker.mjs"
+compatibility_date = "2026-09-01"
+workers_dev = true
+# Add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET via the dashboard as secrets.
+# Never commit their real values here or in the public admin configuration.

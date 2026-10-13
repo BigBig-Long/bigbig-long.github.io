@@ -1,0 +1,58 @@
+backend:
+  name: github
+  repo: BigBig-Long/bigbig-long.github.io
+  branch: main
+  auth_endpoint: auth
+  # base_url is supplied by bootstrap.js from settings.json.
+  commit_messages:
+    create: 'notes: create {{slug}}'
+    update: 'notes: update {{slug}}'
+    delete: 'notes: delete {{slug}}'
+    uploadMedia: 'notes: upload {{path}}'
+    deleteMedia: 'notes: delete {{path}}'
+locale: zh_Hans
+site_url: https://bigbig-long.github.io
+display_url: https://bigbig-long.github.io/notes/
+publish_mode: simple
+media_folder: assets/uploads
+public_folder: /assets/uploads
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+collections:
+  - name: notes
+    label: 学习笔记
+    label_singular: 笔记
+    folder: content/notes
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    slug: '{{fields.slug}}'
+    preview_path: 'notes/{{slug}}.html'
+    summary: '{{title}} · {{date}}'
+    sortable_fields: [date, title]
+    fields:
+      - {label: 标题, name: title, widget: string}
+      - label: 网址名称
+        name: slug
+        widget: string
+        hint: '首次创建时填写，例如 diffusion 或 my-first-note；发布后请保留此名称，避免旧链接失效。'
+        pattern: ['^(?!index$)[a-z0-9]+(?:-[a-z0-9]+)*$', '使用小写英文字母、数字和短横线；不能使用 index。']
+      - {label: 简介, name: description, widget: text}
+      - label: 日期
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+      - {label: 标签, name: tags, widget: list, default: [], required: false}
+      - {label: 封面图片, name: cover, widget: image, required: false, hint: '留空会使用默认封面。'}
+      - {label: 示例内容标记, name: example, widget: boolean, default: false, required: false}
+      - label: 正文
+        name: body
+        widget: richtext
+        hint: '支持标题、图片、链接和代码块。点击发布后内容会保存到公开仓库，网页会稍后自动更新。'
+        default: "## 我学到了什么\n\n\n## 实践与体会\n\n\n## 小结\n\n"
