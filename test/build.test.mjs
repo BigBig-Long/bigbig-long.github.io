@@ -4,7 +4,13 @@ import { mkdtemp, cp, readFile, writeFile, rm, readdir } from 'node:fs/promises'
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parse as parseHtml } from 'parse5';
 import { parseNote, renderMarkdown, renderNote, build } from '../scripts/build.mjs';
+
+function elements(node, tag) {
+  return [ ...(node.tagName === tag ? [node] : []), ...(node.childNodes || []).flatMap(child => elements(child, tag)) ];
+}
+const attribute = (node, name) => node.attrs?.find(item => item.name === name)?.value;
 
 const note = `---\ntitle: 测试笔记\nslug: test-note\ndescription: 学習记录\ndate: 2026-10-13\ntags: [test]\n---\n## 第一个概念\n\n正文\n`;
 test('reject malformed metadata and unsafe filenames', () => {
@@ -27,6 +33,14 @@ test('publishing, updating and deleting a note regenerate index and pages; sourc
     for (const path of ['templates', 'content', 'admin', 'assets', 'research', 'index.html', 'styles.css', 'notes.css', 'script.js']) await cp(join(source, path), join(fixture, path), { recursive: true });
     await writeFile(join(fixture, 'content/notes/test-note.md'), note);
     assert.equal(await build(fixture), 2);
+    const homepage = parseHtml(await readFile(join(fixture, '_site/index.html'), 'utf8'));
+    const head = elements(homepage, 'head')[0];
+    const stylesheets = elements(head, 'link').filter(node => attribute(node, 'rel') === 'stylesheet').map(node => attribute(node, 'href'));
+    assert.deepEqual(stylesheets, ['styles.css', 'notes.css'], 'The homepage must retain usable stylesheet elements after HTML parsing');
+    assert.equal(elements(homepage, 'header').filter(node => attribute(node, 'class')?.split(' ').includes('site-header')).length, 1, 'The homepage navigation must survive HTML parsing');
+    assert.equal(elements(homepage, 'button').filter(node => attribute(node, 'class') === 'menu-button').length, 1);
+    assert.ok(elements(homepage, 'script').some(node => attribute(node, 'src') === 'script.js'));
+    for (const href of stylesheets) assert.ok((await readFile(join(fixture, '_site', href), 'utf8')).length > 100);
     assert.match(await readFile(join(fixture, '_site/index.html'), 'utf8'), /data-note-count>02<\/strong>/);
     assert.match(await readFile(join(fixture, '_site/notes/index.html'), 'utf8'), /test-note.html/);
     assert.match(await readFile(join(fixture, '_site/notes/test-note.html'), 'utf8'), /第一个概念/);
