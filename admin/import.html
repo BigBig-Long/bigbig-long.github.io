@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>导入 Markdown · SJing</title>
+  <link rel="stylesheet" href="import.css">
+</head>
+<body>
+  <main class="import-shell">
+    <nav><a href="/notes/">← 学习笔记</a><a href="./">管理笔记 ↗</a></nav>
+    <header><p class="eyebrow">THE LEARNING JOURNAL</p><h1>把学习记录，带到这里。</h1><p>导入 Markdown，检查笔记信息，然后进入编辑器登录并发布。</p></header>
+    <ol class="steps"><li>01 选择文件</li><li>02 检查信息</li><li>03 编辑与发布</li></ol>
+    <section class="file-panel">
+      <label for="markdown-file"><strong>选择 Markdown 文件</strong><span>支持 UTF-8 编码的 .md / .markdown，最大 1 MB。文件在浏览器中读取，点击发布后才会保存到网站。</span></label>
+      <input id="markdown-file" type="file" accept=".md,.markdown,text/markdown,text/plain" disabled>
+      <p id="status" role="status" aria-live="polite">正在准备导入工具……</p>
+      <p id="error" role="alert" hidden></p>
+    </section>
+    <form id="import-form" hidden>
+      <div class="form-heading"><h2>检查笔记信息</h2><span id="filename"></span></div>
+      <ul id="warnings" class="warnings" hidden></ul>
+      <div class="field-grid">
+        <label>标题<input name="title" required></label>
+        <label>日期<input name="date" type="date" required></label>
+        <label class="wide">网址名称<input name="slug" required pattern="(?!index$)[a-z0-9]+(-[a-z0-9]+)*" aria-describedby="slug-help"><small id="slug-help">例如 diffusion-notes。同名笔记会自动建议新的名称。</small></label>
+        <label class="wide">简介<textarea name="description" rows="3" required></textarea></label>
+        <label class="wide">标签<input name="tags" placeholder="例如：Diffusion, 深度学习"><small>多个标签用逗号分隔。</small></label>
+        <label class="wide">封面图片地址（可选）<input name="cover" placeholder="https://… 或 /assets/uploads/…"><small>也可以进入编辑器后上传封面。</small></label>
+      </div>
+      <label class="check"><input name="example" type="checkbox"> 标记为示例笔记</label>
+      <details><summary>查看导入的 Markdown 正文</summary><label class="source-label">正文<textarea name="body" rows="16" spellcheck="false" required></textarea></label></details>
+      <p class="hint">标题、列表、代码块和链接会随正文导入。本地图片需要在编辑器里另行上传。</p>
+      <footer><button type="submit">进入编辑器 →</button><span>检查完成后，仍需点击“发布”。</span></footer>
+    </form>
+    <noscript>请开启 JavaScript 后使用 Markdown 导入功能。</noscript>
+  </main>
+  <script type="module" src="import.js"></script>
+</body>
+</html>

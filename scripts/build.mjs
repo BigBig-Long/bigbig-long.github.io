@@ -1,11 +1,13 @@
 import { readFile, writeFile, mkdir, readdir, cp, rm } from 'node:fs/promises';
-import { resolve, basename, join } from 'node:path';
+import { resolve, basename, dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import MarkdownIt from 'markdown-it';
 import { parse } from 'yaml';
 
 export const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
+const require = createRequire(import.meta.url);
 const md = new MarkdownIt({ html: false, linkify: true, typographer: false });
 
 export function parseNote(source, filename) {
@@ -50,7 +52,7 @@ function cover(note, index) {
 
 export function renderListing(notes, intro) {
   const cards = notes.map((note, index) => `<article class="note-card"><a class="note-card-link" href="${note.slug}.html" aria-labelledby="note-${note.slug}">${cover(note, String(index + 1).padStart(2, '0'))}<div class="note-card-body"><div class="note-meta"><time datetime="${note.date}">${note.date}</time>${note.example ? '<span class="draft-label">示例笔记</span>' : ''}</div><h3 id="note-${note.slug}">${escape(note.title)}</h3><p>${escape(note.description)}</p><div class="note-tags">${tags(note)}</div><div class="note-card-bottom"><span>LEARNING JOURNAL</span><strong><span data-zh="阅读笔记" data-en="Read note">阅读笔记</span> ↗</strong></div></div></a></article>`).join('\n');
-  return `<main class="notes-main" id="main-content" tabindex="-1"><nav class="breadcrumbs" aria-label="面包屑"><a href="/" data-zh="首页" data-en="Home">首页</a><span>/</span><span aria-current="page" data-zh="学习笔记" data-en="Learning notes">学习笔记</span></nav>${intro}<div class="journal-actions"><a class="write-note" href="/admin/#/collections/notes/new"><span aria-hidden="true">＋</span> <span data-zh="新建笔记" data-en="New note">新建笔记</span></a><span data-zh="站主登录后可编辑与发布" data-en="Sign in as the owner to write and publish">站主登录后可编辑与发布</span><a href="/admin/" data-zh="管理笔记 ↗" data-en="Manage notes ↗">管理笔记 ↗</a></div><section class="notes-library" aria-labelledby="library-title"><div class="library-heading"><div><h2 id="library-title" data-zh="所有笔记" data-en="All notes">所有笔记</h2><span class="note-count">${String(notes.length).padStart(2, '0')}</span></div><p data-zh="一点点理解，一页页积累。" data-en="One idea, one page at a time.">一点点理解，一页页积累。</p></div>${cards || '<p>还没有笔记，下一次学习就是新的开始。</p>'}<p class="library-footnote">✦ 让每一次学习，都留下可以回看的痕迹。</p></section></main>`;
+  return `<main class="notes-main" id="main-content" tabindex="-1"><nav class="breadcrumbs" aria-label="面包屑"><a href="/" data-zh="首页" data-en="Home">首页</a><span>/</span><span aria-current="page" data-zh="学习笔记" data-en="Learning notes">学习笔记</span></nav>${intro}<div class="journal-actions"><a class="write-note" href="/admin/#/collections/notes/new"><span aria-hidden="true">＋</span> <span data-zh="新建笔记" data-en="New note">新建笔记</span></a><a class="write-note" href="/admin/import.html"><span aria-hidden="true">↑</span> <span data-zh="导入 Markdown" data-en="Import Markdown">导入 Markdown</span></a><span data-zh="站主登录后可编辑与发布" data-en="Sign in as the owner to write and publish">站主登录后可编辑与发布</span><a href="/admin/" data-zh="管理笔记 ↗" data-en="Manage notes ↗">管理笔记 ↗</a></div><section class="notes-library" aria-labelledby="library-title"><div class="library-heading"><div><h2 id="library-title" data-zh="所有笔记" data-en="All notes">所有笔记</h2><span class="note-count">${String(notes.length).padStart(2, '0')}</span></div><p data-zh="一点点理解，一页页积累。" data-en="One idea, one page at a time.">一点点理解，一页页积累。</p></div>${cards || '<p>还没有笔记，下一次学习就是新的开始。</p>'}<p class="library-footnote">✦ 让每一次学习，都留下可以回看的痕迹。</p></section></main>`;
 }
 
 export function renderNote(note) {
@@ -75,6 +77,13 @@ export async function build(siteRoot = root) {
   await mkdir(join(output, 'notes'), { recursive: true });
   // Explicit public asset list: build scripts, OAuth source, content sources and dependencies stay out.
   for (const path of ['index.html', 'styles.css', 'notes.css', 'script.js', 'assets', 'research', 'admin']) await cp(join(siteRoot, path), join(output, path), { recursive: true });
+  // Serve the pinned YAML browser parser locally, without another CDN dependency.
+  const yamlRoot = dirname(require.resolve('yaml/package.json'));
+  await cp(join(yamlRoot, 'browser'), join(output, 'admin/vendor/yaml'), { recursive: true });
+  await cp(join(yamlRoot, 'LICENSE'), join(output, 'admin/vendor/yaml/LICENSE'));
+  const cmsConfig = parse(await readFile(join(siteRoot, 'admin/config.yml'), 'utf8'));
+  await writeFile(join(output, 'admin/cms-config.json'), JSON.stringify(cmsConfig));
+  await writeFile(join(output, 'admin/note-slugs.json'), JSON.stringify(notes.map(note => note.slug)));
   const homepage = await readFile(join(output, 'index.html'), 'utf8');
   await writeFile(join(output, 'index.html'), homepage.replace(/(<strong data-note-count>)[^<]*(<\/strong>)/, `$1${String(notes.length).padStart(2, '0')}$2`));
   await writeFile(join(output, '.nojekyll'), '');
