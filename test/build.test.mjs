@@ -37,6 +37,12 @@ test('publishing, updating and deleting a note regenerate index and pages; sourc
     assert.equal(await build(fixture), 1);
     assert.deepEqual((await readdir(join(fixture, '_site/notes'))).sort(), ['diffusion.html', 'index.html']);
     assert.ok(!(await readdir(join(fixture, '_site'))).some(name => ['auth', 'test', 'node_modules', 'content'].includes(name)));
+    await rm(join(fixture, 'content/notes/diffusion.md'));
+    // Git removes an empty content directory when the final note is deleted.
+    await rm(join(fixture, 'content/notes'), { recursive: true });
+    assert.equal(await build(fixture), 0);
+    assert.deepEqual(await readdir(join(fixture, '_site/notes')), ['index.html']);
+    assert.match(await readFile(join(fixture, '_site/notes/index.html'), 'utf8'), /还没有笔记/);
   } finally {
     // mkdtemp provides an isolated directory under the OS temp directory.
     await rm(fixture, { recursive: true, force: true });

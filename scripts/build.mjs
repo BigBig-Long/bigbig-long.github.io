@@ -62,7 +62,10 @@ export async function build(siteRoot = root) {
   const output = join(siteRoot, '_site');
   // Output is always the literal _site directory under the selected source root.
   // Read/validate all content first: a malformed note must never replace a good deployment.
-  const filenames = (await readdir(join(siteRoot, 'content/notes'))).filter(name => name.endsWith('.md'));
+  const filenames = (await readdir(join(siteRoot, 'content/notes')).catch(error => {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  })).filter(name => name.endsWith('.md'));
   const notes = await Promise.all(filenames.map(async name => parseNote(await readFile(join(siteRoot, 'content/notes', name), 'utf8'), name)));
   notes.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
   const shell = await readFile(join(siteRoot, 'templates/page.html'), 'utf8');
