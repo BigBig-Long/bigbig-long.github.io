@@ -7,6 +7,9 @@ tags: []
 example: false
 ---
 ## 原理
+通过 SSH 的 RemoteForward 功能：
+远程服务器 127.0.0.1:15000 → 转发 → 本地电脑 127.0.0.1:7897（本地代理端口）
+让远程服务器 “借” 本地的网络访问 Codex 服务。 
 
 ## 步骤
 
@@ -20,7 +23,7 @@ example: false
 
 ### 2. 上传auth.json
 
-把 **C:\Users{用户名}\ .codex** 目录下的 **anth.json** 文件上传到远程服务器的 **.codex** 文件夹里。
+把 **C:\Users\ {用户名}\ .codex** 目录下的 **anth.json** 文件上传到远程服务器的 **.codex** 文件夹里。
 
 ### 3. 配置本地.ssh/config
 
